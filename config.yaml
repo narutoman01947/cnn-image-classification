@@ -1,0 +1,110 @@
+# CNN Image Classification Configuration
+
+# Dataset Configuration
+dataset:
+  mnist:
+    name: "MNIST"
+    num_classes: 10
+    input_shape: [1, 28, 28]
+    train_size: 60000
+    test_size: 10000
+    mean: [0.1307]
+    std: [0.3081]
+  cifar10:
+    name: "CIFAR-10"
+    num_classes: 10
+    input_shape: [3, 32, 32]
+    train_size: 50000
+    test_size: 10000
+    mean: [0.4914, 0.4822, 0.4465]
+    std: [0.2023, 0.1994, 0.2010]
+
+# Training Configuration
+training:
+  batch_size: 64
+  num_epochs: 50
+  learning_rate: 0.001
+  weight_decay: 0.0005
+  momentum: 0.9
+  validation_split: 0.2
+
+# Model Configuration
+models:
+  SimpleCNN:
+    conv_layers: 2
+    filters: [32, 64]
+    kernel_sizes: [3, 3]
+    pool_size: 2
+    pool_type: "max"
+    dropout: 0.25
+    batch_norm: false
+  
+  MediumCNN:
+    conv_layers: 3
+    filters: [32, 64, 128]
+    kernel_sizes: [3, 3, 3]
+    pool_size: 2
+    pool_type: "max"
+    dropout: 0.3
+    batch_norm: true
+  
+  DeepCNN:
+    conv_layers: 4
+    filters: [32, 64, 128, 256]
+    kernel_sizes: [3, 3, 3, 3]
+    pool_size: 2
+    pool_type: "max"
+    dropout: 0.4
+    batch_norm: true
+  
+  AdvancedCNN:
+    conv_layers: 5
+    filters: [32, 64, 128, 256, 512]
+    kernel_sizes: [3, 3, 3, 3, 3]
+    pool_size: 2
+    pool_type: "max"
+    dropout: 0.5
+    batch_norm: true
+    residual: false
+
+# Optimization
+optimizer:
+  type: "adam"
+  learning_rate: 0.001
+  betas: [0.9, 0.999]
+  epsilon: 1e-8
+
+lr_scheduler:
+  type: "cosine"
+  T_max: 50
+  eta_min: 0.00001
+
+# Regularization
+regularization:
+  l2_penalty: 0.0005
+  early_stopping: true
+  patience: 10
+  min_delta: 0.0001
+
+# Data Augmentation
+augmentation:
+  enabled: false
+  rotation: 15
+  zoom: 0.1
+  horizontal_flip: true
+  vertical_flip: false
+  shear: 0.1
+
+# Directories
+directories:
+  data_dir: "./data"
+  models_dir: "./results/models"
+  plots_dir: "./results/plots"
+  logs_dir: "./results/logs"
+
+# Hardware
+hardware:
+  device: "cuda"  # or "cpu"
+  num_workers: 4
+  pin_memory: true
+  mixed_precision: false
